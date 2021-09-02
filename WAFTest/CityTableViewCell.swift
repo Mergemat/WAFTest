@@ -12,7 +12,10 @@ class CityTableViewCell: UITableViewCell {
     var fact: Fact? {
         didSet {
             temp.text = "\((fact!.temp ?? fact!.temp_avg)!)°"
-            conditionIcon.sd_setImage(with: URL(string: "https://yastatic.net/weather/i/icons/funky/dark/\(fact!.icon).svg"), completed: nil)
+            conditionIcon.sd_setImage(with:
+                URL(string: "https://yastatic.net/weather/i/icons/funky/dark/\(fact!.icon).svg"),
+                completed: nil
+            )
         }
     }
 
@@ -35,6 +38,14 @@ class CityTableViewCell: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+
+        setUI()
+        setConstraints()
+    }
+
+    // MARK: настройка UI
+
+    func setUI() {
         block.layer.cornerRadius = 7
         block.layer.backgroundColor = UIColor(red: 0.224, green: 0.243, blue: 0.275, alpha: 1).cgColor
         block.translatesAutoresizingMaskIntoConstraints = false
@@ -44,12 +55,16 @@ class CityTableViewCell: UITableViewCell {
         cityNameLabel.translatesAutoresizingMaskIntoConstraints = false
         temp.translatesAutoresizingMaskIntoConstraints = false
         conditionIcon.translatesAutoresizingMaskIntoConstraints = false
-        
+
         addSubview(block)
         block.addSubview(cityNameLabel)
         block.addSubview(conditionIcon)
         block.addSubview(temp)
-        
+    }
+
+    // MARK: настройка констрейнтов
+
+    func setConstraints() {
         NSLayoutConstraint.activate([
             block.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor, constant: 18),
             block.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor, constant: -18),
@@ -69,7 +84,7 @@ class CityTableViewCell: UITableViewCell {
             conditionIcon.bottomAnchor.constraint(equalTo: block.bottomAnchor, constant: -23),
             conditionIcon.leadingAnchor.constraint(equalTo: cityNameLabel.trailingAnchor),
             conditionIcon.trailingAnchor.constraint(equalTo: temp.leadingAnchor),
-            conditionIcon.widthAnchor.constraint(equalToConstant: 55)
+            conditionIcon.widthAnchor.constraint(equalToConstant: 55),
 
         ])
     }

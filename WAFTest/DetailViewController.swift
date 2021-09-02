@@ -16,14 +16,25 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView = UITableView(frame: view.bounds, style: UITableView.Style.grouped)
         view.backgroundColor = UIColor(red: 0.133, green: 0.157, blue: 0.192, alpha: 1)
-        tableView.backgroundColor = UIColor(red: 0.133, green: 0.157, blue: 0.192, alpha: 1)
+        configureTableView()
+        setCityLabel()
+        
+    }
+    //MARK: Конфигурация TableView
+    func configureTableView() {
+        tableView = UITableView(frame: view.bounds, style: UITableView.Style.grouped)
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(CityTableViewCell.self, forCellReuseIdentifier: "part")
-        
+        tableView.backgroundColor = UIColor(red: 0.133, green: 0.157, blue: 0.192, alpha: 1)
+        view.addSubview(tableView)
+    }
+    
+    //MARK: Лейбл с названием города в tableHeaderView
+    func setCityLabel() {
         let label = UILabel()
         let tableHeaderView = UIView()
         label.frame = CGRect(x: 16, y: 0, width: self.view.frame.width - 116, height: 30)
@@ -33,11 +44,12 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         
         tableHeaderView.addSubview(label)
         tableView.tableHeaderView = tableHeaderView
-        
-        view.addSubview(tableView)
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(
+        _ tableView: UITableView,
+        numberOfRowsInSection section: Int
+    ) -> Int {
         return 4
     }
     
@@ -45,7 +57,10 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         return 2
     }
     
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(
+        _ tableView: UITableView,
+        viewForHeaderInSection section: Int
+    ) -> UIView? {
         var day = "Сегодня"
         if section == 1 {
             day = "Завтра"
@@ -62,7 +77,10 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         return headerView
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(
+        _ tableView: UITableView,
+        cellForRowAt indexPath: IndexPath
+    ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "part", for: indexPath) as! CityTableViewCell
         
         cell.fact = detailItem?.forecasts[indexPath.section].parts[self.parts[indexPath.row]]
@@ -71,7 +89,10 @@ class DetailViewController: UIViewController, UITableViewDataSource, UITableView
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(
+        _ tableView: UITableView,
+        heightForRowAt indexPath: IndexPath
+    ) -> CGFloat {
         return 137.0
     }
     
