@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     var tableView = UITableView()
     var searchController = UISearchController()
+    var alert = UIAlertController()
 
     var cities = [City]()
     var searchedCity = [City]()
@@ -44,6 +45,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchController.searchBar.backgroundColor = UIColor(red: 0.133, green: 0.157, blue: 0.192, alpha: 1)
         view.backgroundColor = UIColor(red: 0.133, green: 0.157, blue: 0.192, alpha: 1)
         tableView.backgroundColor = UIColor(red: 0.133, green: 0.157, blue: 0.192, alpha: 1)
+        
+        alert = UIAlertController(title: "Ошибочка", message: "Отсутствует подключение с сервером", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Понятно", style: UIAlertAction.Style.default, handler: nil))
     }
 
     // MARK: Конфигурация TableView и SearchBar
@@ -81,11 +85,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                     self.cities.append(city)
                     self.tableView.reloadData()
 
-                case let .failure(error):
-                    print(error)
-                    let alert = UIAlertController(title: "Ошибочка", message: "Отсутствует подключение с сервером", preferredStyle: UIAlertController.Style.alert)
-                    alert.addAction(UIAlertAction(title: "Понятно", style: UIAlertAction.Style.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                case .failure:
+                    if self.alert.isBeingPresented == false {
+                        self.present(self.alert, animated: true, completion: nil)
+                    }
                 }
             }
         }
