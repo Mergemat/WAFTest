@@ -2,5 +2,5 @@
 Данные с yandex API.
 
 Deps:
-  Alamofire
+  Alamofire,
   SDWebImage
