@@ -2,6 +2,6 @@
 Данные с yandex API.
 
 Deps:
-  *Alamofire*,
-  *SDWebImage*,
-  *SDWebImageSVGCoder* для SVG
+  Alamofire*,
+  SDWebImage,
+  SDWebImageSVGCoder для SVG
