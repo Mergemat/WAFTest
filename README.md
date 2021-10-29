@@ -3,4 +3,5 @@
 
 Deps:
   Alamofire,
-  SDWebImage
+  SDWebImage,
+  SDWebImageSVGCoder для SVG
